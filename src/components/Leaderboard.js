@@ -24,24 +24,46 @@ export default class Leaderboard extends React.Component {
     if (this.state.leaders.length > 0) {
       console.log(this.state.leaders)
       return (
-              <div class="grid-container" style={{display: 'grid', gridTemplateColumns: 'auto auto'}}>
-                <div class="grid-item">{"PLAYER"}</div>
-                <div class="grid-item">{"SECONDS"}</div>
-                <div class="grid-item">{this.state.leaders[0].username}</div>
-                <div class="grid-item">{this.state.leaders[0].time}</div>
-                <div class="grid-item">{this.state.leaders[1].username}</div>
-                <div class="grid-item">{this.state.leaders[1].time}</div>
+              <div id="leaderboard-table" style={{display: 'table'}}>
+
+                <div className='row'>
+                  <div className="column header" id="left">
+                    <h1>{"PLAYER"}</h1>
+                  </div>
+                  <div className="column header" id="right">
+                    <h1>{"SECONDS"}</h1>
+                  </div>
+                </div>
+                {this.state.leaders.map((leader, index) => {
+                  return (
+                  (index === (this.state.leaders.length - 1)) ?
+                    <div className='row'>
+                      <div className="column cell bottom left">{leader.username}</div>
+                      <div className="column cell bottom right">{leader.time}</div>
+                    </div>
+                  :
+                    <div className='row'>
+                      <div className="column cell">{leader.username}</div>
+                      <div className="column cell">{leader.time}</div>
+                    </div>
+                  )
+                })}
               </div>
               )
     }
   }
 
+  buildUsernameCell = (username) => {
+
+  }
+
   render() {
     console.log('LEADERS:', this.state.leaders)
     return(
-      <div>
-        <h1>{"LEADERBOARD"}</h1>
+      <div id='leaderboard-container'>
+        <p id="leaderboard-title">{"LEADERBOARD"}</p>
           {this.buildBoard()}
+          <button id={'back'} onClick={this.props.handleBack}>PLAY</button>
       </div>
     )
   }

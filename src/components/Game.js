@@ -4,6 +4,7 @@ import MissionBox from './MissionBox'
 import ItemList from './ItemList'
 import DummyTimer from './DummyTimer'
 import Timer from './Timer'
+import Leaderboard from './Leaderboard'
 
 export default class Game extends Component {
   state = {
@@ -15,6 +16,7 @@ export default class Game extends Component {
     started: false,
     top: [],
     bottom: [],
+    leaderboard: false,
   }
 
   startGame = () => {
@@ -60,6 +62,14 @@ export default class Game extends Component {
     )}
   }
 
+  showLeaderboard = () => {
+    this.setState({leaderboard: true})
+  }
+
+  hideLeaderboard = () => {
+    this.setState({leaderboard: false})
+  }
+
   setFinalTime = (seconds) => {
     this.setState({time: seconds})
   }
@@ -75,11 +85,19 @@ export default class Game extends Component {
           <FoundBox  found={this.state.found} won={this.state.won} user={this.props.currentUser}/>
 
         </div>
+        {(this.state.leaderboard) ?
+          <Leaderboard handleBack={this.hideLeaderboard}/>
+        :
         <div id="image_container">
           { (!this.state.started) ?
-            <button className={'start_game_button'} onClick={this.startGame}>
-              <p id="button-start-game-text">START GAME</p> Search through the junk pile and find the requested items!
-            </button>
+            <div className="buttons-area">
+              <button className={'game_button'} onClick={this.startGame}>
+                <p id="button-start-game-text">START GAME</p> Search through the junk pile and find the requested items!
+              </button>
+              <button className={'game_button'} onClick={this.showLeaderboard}>
+                <p id="button-start-game-text">LEADERBOARD</p>
+              </button>
+            </div>
             : null
           }
           { (this.state.won) ?
@@ -95,15 +113,8 @@ export default class Game extends Component {
             <ItemList id="location-2" className="item" list={this.state.top} handleClick={this.handleItemClick}/>
           </div>
         </div>
-
+      }
     </div>
     )
   }
 }
-
-
-// barbie
-// tuba
-// #1 dad mug
-// monopoly piece
-//

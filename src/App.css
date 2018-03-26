@@ -57,7 +57,7 @@ a:visited {
 
 /* --------------------------- GAME PAGE BUTTON------------------------------ */
 
-.start_game_button{
+.game_button{
   position: relative;
   width: 500px;
   height: 300px;
@@ -75,7 +75,7 @@ a:visited {
   font-size: 20px;
 }
 
-.start_game_button:active {
+.game_button:active {
   box-shadow: 5px 5px 0px #081c48;
   transform: translate(10px,10px);
   border: 10px solid #1374a4;
@@ -282,4 +282,97 @@ input[type=submit]:hover {
   text-decoration: none;
   border-radius: 20px;
   font-size: 20px;
+}
+
+/* ------------------------- LEADERBOARD PAGE ------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+#leaderboard-container {
+  display: inline-block;
+  background-color: #43B57B;
+  width: 800px;
+  border: 10px solid #1374a4;
+  border-radius: 60px;
+  height: 700px;
+}
+
+#leaderboard-table {
+  z-index: 2;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid white;
+  border-radius: 60px;
+  margin-top: 35px;
+}
+
+#leaderboard-title {
+  font-size: 80px;
+  font-family: 'bubblegum';
+  color: #164869;
+  margin: 25px;
+}
+
+.column {
+    float: left;
+    width: 300px;
+    padding: 10px;
+    border-left: 3px solid white;
+    border-right: 3px solid white;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+}
+
+.header {
+  background-color: #2473A8;
+  font-family: 'bubblegum';
+  font-size: 20px;
+}
+
+.cell {
+  background-color: #c0def2;
+  font-size: 26px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#left {
+  border-top-left-radius: 60px;
+}
+
+#right {
+  border-top-right-radius: 60px;
+}
+
+.bottom.left {
+  border-bottom-left-radius: 60px;
+}
+
+.bottom.right {
+  border-bottom-right-radius: 60px;
+}
+
+#back {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  z-index: 1;
+  background-color: #43B57B;
+  border: 10px solid #1374a4;
+  color: white;
+  text-decoration: none;
+  border-radius: 60px;
+  font-family: 'bubblegum';
+  letter-spacing: 3px;
+  box-shadow: 5px 5px 0px #081c48;
+  line-height: 20px;
+  font-size: 20px;
+  margin-top: 20px;
 }
