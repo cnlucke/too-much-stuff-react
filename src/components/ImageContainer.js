@@ -12,7 +12,8 @@ function collect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
-    canDrop: monitor.canDrop()
+    canDrop: monitor.canDrop(),
+    currentDragOffset: {},
   };
 }
 
@@ -21,11 +22,16 @@ const imageTarget = {
     return true;
     // return canMoveKnight(props.x, props.y);
   },
-
-  drop(props) {
-    console.log("DROP:", props.x, props.y)
-    // moveKnight(props.x, props.y);
+  hover(props, monitor, component) {
+    console.log("HOVER:", monitor.getClientOffset())
+    component.setState({
+      currentDragOffset: monitor.getClientOffset()
+    })
   }
+  // drop(props) {
+  //   console.log("DROP:", props.x, props.y)
+  //   moveKnight(props.x, props.y);
+  // }
 };
 
 class ImageContainer extends React.Component {
@@ -42,9 +48,7 @@ class ImageContainer extends React.Component {
   }
 
   render() {
-    console.log("ImageContainer props:", this.props)
-    const { x, y, connectDropTarget, isOver, canDrop } = this.props;
-    console.log("X:", x, "Y:", y)
+    const { connectDropTarget } = this.props;
     return connectDropTarget(
       <div id="image_container">
         { (!this.props.started) ?

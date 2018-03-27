@@ -31,9 +31,8 @@ class Item extends Component {
 
     this.state = {
       left: props.coordinates.left,
-      top: props.coordinates.right,
+      top: props.coordinates.top,
     }
-
   }
 
   componentDidMount() {
