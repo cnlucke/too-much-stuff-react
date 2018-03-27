@@ -5,6 +5,8 @@ import LoginContainer from './components/LoginContainer';
 import Leaderboard from './components/Leaderboard';
 import { Route, Redirect } from 'react-router'
 import './App.css';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 class App extends Component {
   state = {
@@ -60,4 +62,4 @@ class App extends Component {
   }
 }
 
-    export default App;
+export default DragDropContext(HTML5Backend)(App)

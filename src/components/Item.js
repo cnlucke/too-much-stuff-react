@@ -1,45 +1,72 @@
 import React, { Component } from 'react';
+import { DragSource } from 'react-dnd';
+import PropTypes from 'prop-types';
+
+const Types = {
+  ITEM: 'item'
+};
+
+const itemSource = {
+  beginDrag(props) {
+    return props.img
+  },
+  endDrag(props, monitor, component) {
+    console.log(monitor)
+    return props.handleClick(props.img)
+  }
+}
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
+    isDragging: monitor.isDragging(),
+  }
+}
 
 
 class Item extends Component {
-  state = {
-    left: 0,
-    top: 0,
-    style: {}
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      left: props.coordinates.left,
+      top: props.coordinates.right,
+    }
+
   }
 
   componentDidMount() {
-    // console.log("MOUNTING:", this.props.img.name)
-    const style = this.props.id === "location-1" ? this.divStyle1 : this.divStyle2
-    this.setState({ style })
-  }
+    const img = new Image();
+    img.src = `${this.props.img.src}`
+    img.style.height = '20px';
+    img.style.width = '20px';
+    img.onload = () => this.props.connectDragPreview(img);
 
-  componentWillUnmount() {
-    // console.log("UNMOUNTING:", this.props.img.name)
-  }
-
-  divStyle1 = {
-    left: Math.floor(Math.random() * 501),
-    top: Math.floor(Math.random() * 376),
-  }
-
-  divStyle2 = {
-    left: Math.floor(Math.random() * 251),
-    top: Math.floor(Math.random() * 201),
   }
 
   render() {
-    return(
-        <img
-          style={this.state.style}
-          src={this.props.img.src}
-          onClick={() => (this.props.handleClick ? this.props.handleClick(this.props.img) : null )}
-          alt={this.props.img.name}
-          className={this.props.className}
-          id={this.props.id}
+    const { isDragging, connectDragSource } = this.props
+    return connectDragSource(
+      <img
+        style={{left: this.state.left,
+          top: this.state.top,
+          cursor: isDragging ? 'zoom-in' : 'grab'
+        }}
+        src={this.props.img.src}
+        alt={this.props.img.name}
+        className={this.props.className}
+        id={this.props.id}
         />
-      )
-    }
+    )
   }
+}
 
-export default Item;
+Item.propTypes = {
+  connectDragSource: PropTypes.func.isRequired,
+  isDragging: PropTypes.bool.isRequired
+};
+
+export default DragSource(Types.ITEM, itemSource, collect)(Item)
+
+// onClick={() => (this.props.handleClick ? this.props.handleClick(this.props.img) : null )}

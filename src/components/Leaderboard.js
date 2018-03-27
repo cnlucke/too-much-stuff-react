@@ -22,7 +22,6 @@ export default class Leaderboard extends React.Component {
 
   buildBoard = () => {
     if (this.state.leaders.length > 0) {
-      console.log(this.state.leaders)
       return (
               <div id="leaderboard-table" style={{display: 'table'}}>
 
@@ -58,7 +57,6 @@ export default class Leaderboard extends React.Component {
   }
 
   render() {
-    console.log('LEADERS:', this.state.leaders)
     return(
       <div id='leaderboard-container'>
         <p id="leaderboard-title">{"LEADERBOARD"}</p>
